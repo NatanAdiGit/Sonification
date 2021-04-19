@@ -16,7 +16,7 @@ domestic_violence_list = pd.read_csv('excel/domesticviolence.csv')[column_name].
 help_for_women_list = pd.read_csv('excel/helpforwomen.csv')[column_name].tolist()[2:55]
 women_homicide_list = pd.read_csv('excel/womenhomicide.csv')[column_name].tolist()[2:55]
 womens_shelter_list = pd.read_csv('excel/womensshelter.csv')[column_name].tolist()[2:55]
-finantial_aid_list = pd.read_csv('excel/finantialaid.csv')[column_name].tolist()[2:55]
+financial_aid_list = pd.read_csv('excel/financialaid.csv')[column_name].tolist()[2:55]
 
 data_list = []
 
@@ -28,7 +28,7 @@ data_list = []
 
 for i in range(52):
     average = (int(domestic_violence_list[i]) + int(help_for_women_list[i]) +
-               int(women_homicide_list[i]) + int(womens_shelter_list[i]) + int(finantial_aid_list[i])) / 5.0
+               int(women_homicide_list[i]) + int(womens_shelter_list[i]) + int(financial_aid_list[i])) / 5.0
     if average <= 45:
         data_list.append(0.2)
     elif average <= 50:
