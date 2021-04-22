@@ -4,6 +4,7 @@ from pygame import *
 import time
 import sys
 
+
 column_name = 'Category: All categories'
 
 covid_list = pd.read_csv('excel/covid.csv')[column_name].tolist()[2:]
@@ -21,8 +22,11 @@ pygame.mixer.pre_init(44100, -16, 2, 2048)
 pygame.init()
 screen = pygame.display.set_mode((400, 400), 0, 32)
 
-sound_1 = pygame.mixer.Sound('sounds/sound_one.mp3')
-sound_2 = pygame.mixer.Sound('sounds/sound_two.mp3')
+cry_sound = pygame.mixer.Sound('sounds/cry_sound.mp3')
+vent_sounds = [pygame.mixer.Sound('sounds/ventilator_1.mp3'),
+               pygame.mixer.Sound('sounds/ventilator_2.mp3')]
+beep_sound = pygame.mixer.Sound('sounds/b.mp3')
+
 
 
 def get_average_data_list():
@@ -58,30 +62,41 @@ def pause(sec):
 
 
 def play_data(av_data_list):
-    sound_1.play()
-    for j in range(52):
-        sound_1.set_volume(av_data_list[j])
+    cry_sound.play()
+    play_again = time.time() + 53
+    played_again = 0
 
-        sound_2.set_volume(float(covid_list[j]) / 100)
-        sound_2.play()
+    for j in range(52):
+        cry_sound.set_volume(av_data_list[j])
+        if time.time() > play_again and played_again == 0:
+            cry_sound.play()
+            played_again = 1
+
+        vent_sounds[0].set_volume(float(covid_list[j]) / 100)
+        vent_sounds[0].play()
 
         value = float(lockdown_list[j])
         if value <= 2:
-            pause(1.4)
-        elif value <= 2:
-            pause(1.2)
+            pause(2)
+        elif value <= 3:
+            pause(1.9)
         elif value <= 4:
-            pause(1.1)
-        elif value <= 6:
-            pause(1)
+            pause(1.8)
         elif value <= 8:
-            pause(0.9)
+            pause(1.7)
         elif value <= 10:
-            pause(0.8)
+            pause(1.65)
         elif value <= 30:
-            pause(0.7)
+            pause(1.5)
         else:
-            pause(0.6)
+            pause(1.4)
+        #
+        # beep_sound.set_volume(float(covid_list[j]) / 100)
+        # beep_sound.play()
+        # if value <= 5:
+        #    pause(0.2)
+        # else:
+        #     pause(0.15)
 
 
 if __name__ == '__main__':
