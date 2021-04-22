@@ -23,10 +23,7 @@ pygame.init()
 screen = pygame.display.set_mode((400, 400), 0, 32)
 
 cry_sound = pygame.mixer.Sound('sounds/cry_sound.mp3')
-vent_sounds = [pygame.mixer.Sound('sounds/ventilator_1.mp3'),
-               pygame.mixer.Sound('sounds/ventilator_2.mp3')]
-beep_sound = pygame.mixer.Sound('sounds/b.mp3')
-
+vent_sound = pygame.mixer.Sound('sounds/ventilator_1.mp3')
 
 
 def get_average_data_list():
@@ -72,8 +69,8 @@ def play_data(av_data_list):
             cry_sound.play()
             played_again = 1
 
-        vent_sounds[0].set_volume(float(covid_list[j]) / 100)
-        vent_sounds[0].play()
+        vent_sound.set_volume(float(covid_list[j]) / 100)
+        vent_sound.play()
 
         value = float(lockdown_list[j])
         if value <= 2:
@@ -90,13 +87,6 @@ def play_data(av_data_list):
             pause(1.5)
         else:
             pause(1.4)
-        #
-        # beep_sound.set_volume(float(covid_list[j]) / 100)
-        # beep_sound.play()
-        # if value <= 5:
-        #    pause(0.2)
-        # else:
-        #     pause(0.15)
 
 
 if __name__ == '__main__':
